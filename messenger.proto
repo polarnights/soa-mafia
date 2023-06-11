@@ -1,0 +1,46 @@
+
+syntax = "proto3";
+
+message Empty {}
+
+message InitClient {
+	string author = 1;
+}
+
+message CheckResult {
+	bool is_mafia = 1;
+}
+
+message Universal {
+	string text = 1;
+}
+
+message ChatMessage {
+	string author = 1;
+	string text = 2;
+}
+
+service Maphia {
+	
+	rpc WaitForGame(InitClient) returns (stream InitClient) {}
+
+	rpc GetClients(Empty) returns (stream InitClient) {}
+
+	rpc Connect(InitClient) returns (Empty) {}
+
+	rpc EndDay(InitClient) returns (Empty) {}
+
+	rpc VoteKill(InitClient) returns (Empty) {}
+
+	rpc KillNight(InitClient) returns (Empty) {}
+
+	rpc Check(InitClient) returns (CheckResult) {}
+
+	rpc PostMessage(ChatMessage) returns (Empty) {}
+
+	rpc GetMessages(InitClient) returns (stream ChatMessage) {}
+
+	rpc GetRole(InitClient) returns (Universal) {}
+
+	rpc StartDay(InitClient) returns (stream InitClient) {}
+}
