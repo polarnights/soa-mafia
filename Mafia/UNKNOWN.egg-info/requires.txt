@@ -1,0 +1,4 @@
+click
+simple-term-menu
+grpcio
+grpcio-tools

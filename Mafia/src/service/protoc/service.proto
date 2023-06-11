@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package mafia;
+
+service Mafia {
+  rpc CreateRoom (CreateRoomRequest) returns (CreateRoomReply) {}
+
+  rpc JoinToRoom (JoinToRoomRequest) returns (JoinToRoomReply) {}
+
+  rpc SubscribeOnNotifications (SubscribeOnNotificationsRequest) returns (stream SubscribeOnNotificationsReply) {}
+
+  rpc LeaveRoom (LeaveRoomRequest) returns (LeaveRoomReply) {}
+
+  rpc ReadyToStart (ReadyToStartRequest) returns (ReadyToStartReply) {}
+
+  rpc Kill (KillRequest) returns (KillReply) {}
+
+  rpc IsKiller (IsKillerRequest) returns (IsKillerReply) {}
+
+  rpc Night (NightRequest) returns (NightReply) {}
+
+  rpc Day (DayRequest) returns (DayReply) {}
+}
+
+message CreateRoomRequest {
+  string nickname = 1;
+}
+
+message CreateRoomReply {
+  uint64 user_id = 1;
+  string room_id = 2;
+}
+
+message JoinToRoomRequest {
+  string nickname = 1;
+  string room_id = 2;
+}
+
+message JoinToRoomReply {
+  uint64 user_id = 1;
+}
+
+message ReadyToStartRequest {
+  uint64 user_id = 1;
+  string room_id = 2;
+}
+
+message ReadyToStartReply {
+  string role = 1;
+}
+
+message SubscribeOnNotificationsRequest {
+  uint64 user_id = 1;
+  string room_id = 2;
+}
+
+message SubscribeOnNotificationsReply {
+  string type = 1;
+  string data = 2;
+}
+
+message LeaveRoomRequest {
+  uint64 user_id = 1;
+  string room_id = 2;
+}
+
+message LeaveRoomReply {
+}
+
+message KillRequest {
+  string room_id = 1;
+  uint64 user_id = 2;
+  uint64 user_id_to_kill = 3;
+}
+
+message KillReply {
+}
+
+message IsKillerRequest {
+  string room_id = 1;
+  uint64 user_id = 2;
+  uint64 user_id_to_check = 3;
+}
+
+message IsKillerReply {
+  bool answer = 1;
+}
+
+message NightRequest {
+  uint64 user_id = 1;
+  string room_id = 2;
+}
+
+message NightReply {
+}
+
+message DayRequest {
+  string room_id = 1;
+  uint64 user_id = 2;
+  uint64 user_id_to_kill = 3;
+}
+
+message DayReply {
+  bool answer = 1;
+}
